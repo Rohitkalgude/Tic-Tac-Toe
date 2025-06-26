@@ -1,5 +1,5 @@
 let boxes = document.querySelectorAll(".box");
-let resetbutton = document.getElementById("reset-btn");
+let resetgame = document.getElementById("reset-btn");
 let message = document.querySelector(".message");
 let msg = document.querySelector(".msg");
 let newGame = document.querySelector(".newgame");
@@ -17,44 +17,27 @@ const winpattern = [
   [2, 4, 6],
 ];
 
-//game rest
-const resetGame = () => {
-  isPlayerO = true;
-  enableBoxes();
-  message.classList.add("hide");
-};
-
 boxes.forEach((box) => {
   box.addEventListener("click", () => {
     console.log("box click");
 
+    //player O
     if (isPlayerO) {
-      //player O
       box.innerText = "O";
       isPlayerO = false;
-    } else {
-      // palyer X
+    }
+    // palyer X
+    else {
       box.innerText = "x";
       isPlayerO = true;
     }
+
+    box.style.backgroundColor = "#E5E4E2";
     box.disabled = true;
 
     checkWinner();
   });
 });
-
-const disableAllBoxes = () => {
-  for (let box of boxes) {
-    box.disabled = true;
-  }
-};
-
-const enableBoxes = () => {
-  for (let box of boxes) {
-    box.disabled = false;
-    box.innerText = "";
-  }
-};
 
 const checkWinner = () => {
   for (pattern of winpattern) {
@@ -80,5 +63,26 @@ const showWinner = (Winner) => {
   disableAllBoxes();
 };
 
+//game rest
+const resetGame = () => {
+  isPlayerO = true;
+  enableBoxes();
+  message.classList.add("hide");
+};
+
+const disableAllBoxes = () => {
+  for (let box of boxes) {
+    box.disabled = true;
+  }
+};
+
+const enableBoxes = () => {
+  for (let box of boxes) {
+    box.disabled = false;
+    box.innerText = "";
+    box.style.backgroundColor = "";
+  }
+};
+
 newGame.addEventListener("click", resetGame);
-resetbutton.addEventListener("click", resetGame);
+resetgame.addEventListener("click", resetGame);
